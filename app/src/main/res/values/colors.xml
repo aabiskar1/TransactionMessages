@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f51bd</color>
+    <color name="fab_color_background_normal">#395FC2</color>
+    <color name="fab_color_background_pressed">#09c6df</color>
+    <color name="colorPrimaryDark">#292b3d</color>
+    <color name="vectorIconColor">#3f51bd</color>
+    <color name="cardDataColor">#5F6DCE</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#3f51bd</color>
+    <color name="colorAccent">#09c6df</color>
+    <color name="white">#fff</color>
+    <color name="greyLight">#D6D3D3</color>
+    <color name="greyDark">#B3B0B0</color>
+    <color name="transparent">#00272626</color>
+</resources>
+<!--start blue 09c6df-->
+<!--end blue 0bcce6-->

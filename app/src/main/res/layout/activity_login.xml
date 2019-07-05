@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradientbackground"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    >
+<RelativeLayout
+    android:layout_marginTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/logo"
+        android:src="@drawable/logosq_large"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        />
+
+    <RelativeLayout
+        android:layout_below="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/lblLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="LOGIN"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+        <LinearLayout
+            android:id="@+id/lin_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblLogin"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/emailLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/emailLbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/prompt_email"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/login_txtUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/txtbg"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/prompt_email"
+                    android:nextFocusDown="@+id/login_txtPassword"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:text="aabiskar1@yahoo.com"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/greyDark"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/passwordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="password"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/login_txtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/txtbg"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/prompt_password"
+                    android:inputType="textPassword"
+                    android:nextFocusDown="@+id/login_btn"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:text="123456"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/greyDark"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/login_btn"
+          android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lin_layout1"
+            android:fontFamily="sans-serif-medium"
+            android:paddingRight="70dp"
+            android:paddingLeft="70dp"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_bg"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"/>
+
+        <LinearLayout
+            android:id="@+id/dotsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin_layout1"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <com.eyalbira.loadingdots.LoadingDots
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:LoadingDots_auto_play="true"
+
+                app:LoadingDots_dots_color="#C5BBC9"
+                app:LoadingDots_dots_count="2"
+                app:LoadingDots_dots_size="10dp"
+                app:LoadingDots_dots_space="1dp"
+
+                app:LoadingDots_jump_duration="200"
+                app:LoadingDots_jump_height="4dp"
+
+                app:LoadingDots_loop_duration="800"
+                app:LoadingDots_loop_start_delay="100" />
+
+            <com.eyalbira.loadingdots.LoadingDots
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:LoadingDots_auto_play="true"
+
+                app:LoadingDots_dots_color="#4CAF50"
+                app:LoadingDots_dots_count="2"
+                app:LoadingDots_dots_size="10dp"
+                app:LoadingDots_dots_space="1dp"
+
+                app:LoadingDots_jump_duration="200"
+                app:LoadingDots_jump_height="4dp"
+
+                app:LoadingDots_loop_duration="800"
+                app:LoadingDots_loop_start_delay="100" />
+
+            <com.eyalbira.loadingdots.LoadingDots
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:LoadingDots_auto_play="true"
+
+                app:LoadingDots_dots_color="#FF5722"
+                app:LoadingDots_dots_count="2"
+                app:LoadingDots_dots_size="10dp"
+                app:LoadingDots_dots_space="1dp"
+
+                app:LoadingDots_jump_duration="200"
+                app:LoadingDots_jump_height="4dp"
+
+                app:LoadingDots_loop_duration="800"
+                app:LoadingDots_loop_start_delay="100" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/login_registerLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_btn"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:text="REGISTER"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>
+
+</RelativeLayout>

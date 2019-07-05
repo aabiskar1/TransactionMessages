@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="6"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:layout_gravity="center"
+        android:layout_weight="0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@color/endblue">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/displayPic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="35dp"
+                android:src="@drawable/photocircle" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/displayPic"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/profile_usernameSalute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_toLeftOf="@id/profile_username"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="Hello,"
+                    android:textColor="#fff"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/profile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="User Name"
+                    android:textColor="#fff"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <android.support.design.card.MaterialCardView
+            android:id="@+id/counter_card"
+            android:layout_width="300dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="190dp"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:id="@+id/cardLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:id="@+id/profile_reminderSent_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reminder Sent"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/profile_reminderSentCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="0"
+                        android:textColor="@color/cardDataColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profile_reminderReceived_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Got Reminded"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/profile_reminderReceivedCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="0"
+                        android:textColor="@color/cardDataColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:weightSum="7">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_email_blue_24dp" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mainpage_receiverEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Whom to Remind?"
+                        android:nextFocusDown="@id/mainpage_bankname"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_account_balance_blue_24dp" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mainpage_bankname"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Bank Name"
+                        android:nextFocusDown="@id/mainpage_accountnumber"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_account_balance_blue_24dp" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mainpage_accountnumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:hint="Account Number"
+                        android:inputType="number"
+                        android:nextFocusDown="@id/mainpage_accountname"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_person_blue_24dp" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mainpage_accountname"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:completionHint="Select user"
+                        android:completionThreshold="1"
+                        android:hint="Account Name"
+                        android:nextFocusDown="@id/mainpage_amount"
+                        android:paddingLeft="20dp"
+
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_attach_money_black_24dp" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mainpage_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Amount"
+                        android:inputType="number"
+                        android:nextFocusDown="@id/mainpage_notes"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_event_note_100dp" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/mainpage_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Extra Notes"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:weightSum="6">
+
+                    <Button
+                        android:id="@+id/btnSaveData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btnstylegradient"
+                        android:text="SAVE DATA"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnRemind"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="29dp"
+                        android:layout_weight="6"
+                        android:background="@drawable/btnstylegradient"
+                        android:gravity="center_horizontal"
+                        android:text="Remind"
+                        android:textColor="#FFF"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="1"
+                app:fab_addButtonColorNormal="@color/fab_color_background_normal"
+                app:fab_addButtonColorPressed="@color/fab_color_background_pressed"
+                app:fab_labelStyle="@style/customFab">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabitem_speedContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/fab_color_background_normal"
+                    app:fab_colorPressed="@color/fab_color_background_pressed"
+                    app:fab_icon="@drawable/ic_account_circle_white_100dp"
+                    app:fab_size="mini" />
+
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabItem_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/fab_color_background_normal"
+                    app:fab_colorPressed="@color/fab_color_background_pressed"
+                    app:fab_icon="@drawable/ic_settings_white_100dp"
+                    app:fab_size="mini" />
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
