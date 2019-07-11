@@ -8,6 +8,7 @@
     <color name="cardDataColor">#5F6DCE</color>
     <color name="startblue">#09c6df</color>
     <color name="endblue">#3f51bd</color>
+    <color name="endbluePlus">#2E41C0</color>
     <color name="colorAccent">#09c6df</color>
     <color name="white">#fff</color>
     <color name="greyLight">#D6D3D3</color>

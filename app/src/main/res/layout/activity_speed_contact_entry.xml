@@ -1,9 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".speed_contact_entry">
+    android:orientation="vertical"
+    tools:context=".speed_contact_entry_layout">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/speedContactEntry_registerLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPEED CONTACT ENTRY"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+            <ImageButton
+                android:id="@+id/speedContact_btnSaveContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="20dp"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_check_white_100dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@id/toolbar5"
+        android:background="@color/white" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view"
+        android:layout_marginTop="2dp"
+        android:background="@color/endblue">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical"
+            android:paddingRight="20dp"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/speedContactEntry_dotsLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <com.eyalbira.loadingdots.LoadingDots
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+
+                        app:LoadingDots_auto_play="true"
+                        app:LoadingDots_dots_color="#C5BBC9"
+                        app:LoadingDots_dots_count="2"
+                        app:LoadingDots_dots_size="10dp"
+
+                        app:LoadingDots_dots_space="1dp"
+                        app:LoadingDots_jump_duration="200"
+
+                        app:LoadingDots_jump_height="4dp"
+                        app:LoadingDots_loop_duration="800"
+                        app:LoadingDots_loop_start_delay="100" />
+
+                    <com.eyalbira.loadingdots.LoadingDots
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+
+                        app:LoadingDots_auto_play="true"
+                        app:LoadingDots_dots_color="#4CAF50"
+                        app:LoadingDots_dots_count="2"
+                        app:LoadingDots_dots_size="10dp"
+
+                        app:LoadingDots_dots_space="1dp"
+                        app:LoadingDots_jump_duration="200"
+
+                        app:LoadingDots_jump_height="4dp"
+                        app:LoadingDots_loop_duration="800"
+                        app:LoadingDots_loop_start_delay="100" />
+
+                    <com.eyalbira.loadingdots.LoadingDots
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:LoadingDots_auto_play="true"
+
+                        app:LoadingDots_dots_color="#FF5722"
+                        app:LoadingDots_dots_count="2"
+                        app:LoadingDots_dots_size="10dp"
+                        app:LoadingDots_dots_space="1dp"
+
+                        app:LoadingDots_jump_duration="200"
+                        app:LoadingDots_jump_height="4dp"
+
+                        app:LoadingDots_loop_duration="800"
+                        app:LoadingDots_loop_start_delay="100" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_title_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/speedContact_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/txtbg"
+                        android:hint="Title"
+                        android:nextFocusDown="@id/speedContact_receiverEmail"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/greyDark"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_email_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/speedContact_receiverEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/txtbg"
+                        android:hint="Whom to Remind?"
+                        android:nextFocusDown="@id/speedContact_bankname"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/greyDark"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_account_balance_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/speedContact_bankname"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/txtbg"
+                        android:hint="Bank Name"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/greyDark"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_account_balance_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/speedContact_accountnumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/txtbg"
+                        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:hint="Account Number"
+                        android:inputType="number"
+                        android:nextFocusDown="@id/speedContact_accountnumber"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/greyDark"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_person_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/speedContact_accountname"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/txtbg"
+                        android:completionHint="Select user"
+                        android:completionThreshold="1"
+                        android:hint="Account Name"
+                        android:paddingLeft="20dp"
+
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/greyDark"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:weightSum="6" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</RelativeLayout>

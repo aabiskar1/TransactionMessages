@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,15 +27,38 @@ import com.tfb.fbtoast.FBToast;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     private EditText loginUsername,loginPassword;
     private LinearLayout progressbarLayout;
 
     private ProgressBar progressBarAnimation;
     private ObjectAnimator progressAnimator;
 
+    private TextView loginlabel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                if(firebaseAuth.getCurrentUser() != null){
+                    String action;
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
+                }
+
+            }
+        };
+
+
+
+
         Button loginButton;
         TextView lblRegister;
 
@@ -55,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(myIntent);
+
             }
         });
 
@@ -67,8 +92,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        loginlabel = findViewById(R.id.lblLogin);
+        loginlabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user = mAuth.getCurrentUser().getEmail()+ ": is the error";
+                FBToast.warningToast(LoginActivity.this, user , Toast.LENGTH_LONG);
+            }
+        });
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
     public void signIn() {
         progressbarLayout.setVisibility(View.VISIBLE);
@@ -80,10 +120,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
 
                     FBToast.successToast(LoginActivity.this,"Successfully Logged In" , FBToast.LENGTH_SHORT);
-
-                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(myIntent);
                     progressbarLayout.setVisibility(View.GONE);
+
 
                 }
                 else {

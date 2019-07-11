@@ -1,8 +1,13 @@
 package com.example.remindtopay;
 
+import android.app.Notification;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +17,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,11 +34,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 import com.tfb.fbtoast.FBToast;
 
 import java.text.SimpleDateFormat;
@@ -49,16 +52,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
+import static com.example.remindtopay.App.CHANNEL_1_ID;
+
 public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView txtReceiverEmail, txtBankname, txtAccountname, txtAccountNumber, txtAmount,txtNotes;
     TextView txtReminderSentCount, txtProfileName,txtReminderReceivedCount;
     Button remindButton,saveDataButton;
-    FloatingActionButton fab_speed_contact,fab_settings;
+    FloatingActionButton fab_speed_contact,fab_settings, fab_logout,fab_startServices,fab_stopServices;
     DatabaseReference databaseReference;
 
 
     //Fields related to database
-    private FirebaseFirestore dbSentReminder;
+    private FirebaseFirestore FIRESTORE_INSTANCE;
     private FirebaseFirestore dbCheckDocExists;
     private FirebaseFirestore dbReceivedReminder;
     private FirebaseFirestore dbEmailHistory;
@@ -79,7 +86,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_NOTES = "notes";
 
 
+    public static final String NOTIFICATION_INPUT_KEY = "inputExtra";
+    private NotificationManagerCompat notificationManager;
+
+
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+
     private CollectionReference notebookRefSent;
     private CollectionReference notebookRefReceived;
     private DocumentReference checkDocExistsRef;
@@ -88,27 +102,35 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout sentReminderLayoutBtn;
     LinearLayout receivedReminderLayoutBtn;
-
+    private static long back_pressed;
+    private ListenerRegistration notificationEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+
+
         //Firestore instance for database
-        dbSentReminder = FirebaseFirestore.getInstance();
-        dbReceivedReminder = FirebaseFirestore.getInstance();
-        dbAccountNameHistory= FirebaseFirestore.getInstance();
-        dbAccountNumberHisotry= FirebaseFirestore.getInstance();
-        dbBankNameHistory= FirebaseFirestore.getInstance();
-        dbEmailHistory= FirebaseFirestore.getInstance();
-        dbCheckDocExists = FirebaseFirestore.getInstance();
-        dbUserDetails = FirebaseFirestore.getInstance();
+        FIRESTORE_INSTANCE = FirebaseFirestore.getInstance();
+        dbReceivedReminder = FIRESTORE_INSTANCE;
+        dbAccountNameHistory= FIRESTORE_INSTANCE;
+        dbAccountNumberHisotry= FIRESTORE_INSTANCE;
+        dbBankNameHistory= FIRESTORE_INSTANCE;
+        dbEmailHistory= FIRESTORE_INSTANCE;
+        dbCheckDocExists = FIRESTORE_INSTANCE;
+        dbUserDetails = FIRESTORE_INSTANCE;
 
 
+        Context context;
+        notificationManager = NotificationManagerCompat.from(this);
 
+        //fabs
         fab_speed_contact = findViewById(R.id.fabitem_speedContact);
         fab_settings = findViewById(R.id.fabItem_settings);
+        fab_logout = findViewById(R.id.fabItem_logout);
+
 
         txtReceiverEmail = findViewById(R.id.mainpage_receiverEmail);
         txtBankname = findViewById(R.id.mainpage_bankname);
@@ -129,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
         //database references
         checkDocExistsRef =  dbCheckDocExists.collection("details").document(username);
-        notebookRefSent = dbSentReminder.collection("reminder").document(username).collection("sentReminders");
+        notebookRefSent = FIRESTORE_INSTANCE.collection("reminder").document(username).collection("sentReminders");
         notebookRefReceived = dbReceivedReminder.collection("reminder").document(username).collection("receivedReminders");
         historyEmailRef =     dbEmailHistory.collection("history").document(username).collection("sent_email_history");
         historyBankNameRef = dbBankNameHistory.collection("history").document(username).collection("sent_bankName_history");
@@ -154,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
             txtAccountNumber.setText(accountNumber);
             //The key argument here must match that used in the other activity
         }
-
 
 
 
@@ -225,28 +246,12 @@ public class MainActivity extends AppCompatActivity {
 //test code
         String[] testarray = new String[]{"test1", "test2", "test3", "test3", "test3", "test3", "test3", "test3", "test3", "test3", "test3", "test3"};
 
-        //txtReceiverEmail.setAdapter(new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_expandable_list_item_1,testarray));
-       // txtAmount.setAdapter(new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,testarray));
 
 
 
         //counting number of sent reminder items
         sentReminderCounterUpdate();
-//        notebookRefSent.get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            int count = 0;
-//                            for (DocumentSnapshot document : task.getResult()) {
-//                                count=count+1;
-//                                txtReminderSentCount.setText(count+"");
-//                            }
-//                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
+
         receivedReminderCounterUpdate();
 
         FirebaseApp.initializeApp(this);
@@ -303,8 +308,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                sentReminderCounterUpdate();
-                receivedReminderCounterUpdate();
+
                 String receiverEmail = txtReceiverEmail.getText().toString().toLowerCase().trim();
                 dbCheckDocExists.collection("details").document(receiverEmail).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -318,11 +322,17 @@ public class MainActivity extends AppCompatActivity {
                             if (document.exists()) {
                                 addRemind();
                                 FBToast.successToast(MainActivity.this," Reminder Added" , FBToast.LENGTH_SHORT);
+                                sentReminderCounterUpdate();
+                                receivedReminderCounterUpdate();
                             } else {
                                 FBToast.errorToast(MainActivity.this," User does not exists", FBToast.LENGTH_SHORT);
+                                sentReminderCounterUpdate();
+                                receivedReminderCounterUpdate();
                             }
                         } else {
                             FBToast.errorToast(MainActivity.this,"Error: "+task.getException(),FBToast.LENGTH_SHORT);
+                            sentReminderCounterUpdate();
+                            receivedReminderCounterUpdate();
                         }
                     }
                 });
@@ -377,9 +387,122 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        fab_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mAuth.signOut();
+                notificationEventListener.remove();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                finish();
+
+            }
+        });
+//
+//        fab_startServices.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sentOnChannel1(v);
+//                Toast.makeText(MainActivity.this, "channel 1 notification", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        fab_stopServices.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               sentOnChannel2(v);
+//                Toast.makeText(MainActivity.this, "channel 2 notification", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+
+//
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//
+//                if(firebaseAuth.getCurrentUser() != null){
+//
+//                }
+//
+//                else{
+//                    finish();
+//                }
+//            }
+//        };
+
+        notificationEventListener =  notebookRefReceived.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                sentOnChannel1(getCurrentFocus());
+            }
+        });
+
+
+
 
     }
 
+    public void startNotificationListener(){
+        notificationEventListener =  notebookRefReceived.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                sentOnChannel1(getCurrentFocus());
+            }
+        });
+    }
+
+
+//    public void startService(View v){
+//        String action;
+//        String input = "New reminder received";
+//        Intent serviceIntent = new Intent(this, Services.class);
+//        serviceIntent.putExtra("inputExtra",input);
+//
+//        ContextCompat.startForegroundService(this,serviceIntent);
+//    }
+//
+//    public void stopService(View v){
+//
+//        Intent serviceIntent = new Intent(this, Services.class);
+//        stopService(serviceIntent);
+//    }
+
+    public void sentOnChannel1(View v)
+    {
+        Notification notification = new NotificationCompat.Builder(this,App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_notification_icon_24dp)
+                .setContentText("Notification Title")
+                .setContentText("Notification Message from remind to pay")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        notificationManager.notify(1,notification);
+    }
+
+
+    public void sentOnChannel2(View v)
+    {
+        Notification notification = new NotificationCompat.Builder(this,App.CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_notification_icon_24dp)
+                .setContentText("Notification Title")
+                .setContentText("Notification Message from remind to pay")
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+
+        notificationManager.notify(2,notification);
+    }
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            FBToast.warningToast(getBaseContext(), "Press once again to exit",
+                    Toast.LENGTH_SHORT);
+            back_pressed = System.currentTimeMillis();
+        }
+    }
     public void onItemClick(AdapterView<?> adapterViewIn, View viewIn, int indexSelected, long arg3) {
         InputMethodManager imm = (InputMethodManager) getSystemService(viewIn.getContext().INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(viewIn.getApplicationWindowToken(), 0);
@@ -432,7 +555,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            dbSentReminder.collection("reminder").document(userLocation).collection("sentReminders").document(currentDateAndTime).set(reminder)
+            FIRESTORE_INSTANCE.collection("reminder").document(userLocation).collection("sentReminders").document(currentDateAndTime).set(reminder)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -540,18 +663,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();    }
 
     @Override
     protected void onStart() {
         super.onStart();
+        receivedReminderCounterUpdate();
+        sentReminderCounterUpdate();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (mAuth.getCurrentUser() != null){
             loadName();
+
         }
     }
 
     public void saveData() {
+
         String userLocation = mAuth.getCurrentUser().getEmail();
         Toast.makeText(this, "worked first part", Toast.LENGTH_SHORT).show();
 
@@ -582,7 +714,7 @@ public class MainActivity extends AppCompatActivity {
             reminder.put(KEY_NOTES, notes);
             reminder.put(KEY_STATUS, "in progress");
 
-            dbSentReminder.collection("reminder").document(userLocation).collection("sentReminders").document(currentDateAndTime).set(reminder)
+            FIRESTORE_INSTANCE.collection("reminder").document(userLocation).collection("sentReminders").document(currentDateAndTime).set(reminder)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -694,7 +826,6 @@ public class MainActivity extends AppCompatActivity {
             txtAmount.requestFocus();
             return true;
         }
-
         return false;
     }
 
@@ -778,7 +909,7 @@ public class MainActivity extends AppCompatActivity {
                 if (documentSnapshot.exists()){
                     UserDetails userDetails = documentSnapshot.toObject(UserDetails.class);
                     String first_name = userDetails.getFirst_name();
-                    txtProfileName.setText(first_name.toString());
+                    txtProfileName.setText(first_name);
                 }
             }
         });

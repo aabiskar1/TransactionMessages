@@ -135,23 +135,19 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="5">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_gravity="bottom|center">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
                 android:orientation="vertical"
-                android:weightSum="7">
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -304,9 +300,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="bottom"
                     android:orientation="horizontal"
-                    android:paddingLeft="15dp"
                     android:weightSum="6">
 
                     <Button
@@ -319,12 +315,10 @@
 
                     <Button
                         android:id="@+id/btnRemind"
-                        android:layout_width="match_parent"
+                        android:layout_width="180dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="29dp"
-                        android:layout_weight="6"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="5dp"
                         android:background="@drawable/btnstylegradient"
                         android:gravity="center_horizontal"
                         android:text="Remind"
@@ -338,9 +332,7 @@
             <com.getbase.floatingactionbutton.FloatingActionsMenu
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="15dp"
-                android:layout_weight="1"
+                android:layout_gravity="bottom|right"
                 app:fab_addButtonColorNormal="@color/fab_color_background_normal"
                 app:fab_addButtonColorPressed="@color/fab_color_background_pressed"
                 app:fab_labelStyle="@style/customFab">
@@ -364,10 +356,20 @@
                     app:fab_icon="@drawable/ic_settings_white_100dp"
                     app:fab_size="mini" />
 
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabItem_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/fab_color_background_normal"
+                    app:fab_colorPressed="@color/fab_color_background_pressed"
+                    app:fab_icon="@drawable/ic_logout_icon_50dp"
+                    app:fab_size="mini" />
+
+
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
-        </LinearLayout>
+        </android.support.design.widget.CoordinatorLayout>
 
 
     </ScrollView>

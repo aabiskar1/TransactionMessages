@@ -59,4 +59,5 @@ dependencies {
     implementation 'com.github.NaimishTrivedi:FBToast:1.0'
     implementation 'com.eyalbira.loadingdots:loading-dots:1.0.2'
 
+    //dialog box
 }
