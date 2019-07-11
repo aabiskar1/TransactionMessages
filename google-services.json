@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "365559018014",
+    "firebase_url": "https://remindtopay.firebaseio.com",
+    "project_id": "remindtopay",
+    "storage_bucket": "remindtopay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365559018014:android:8def7a8d113ed36a",
+        "android_client_info": {
+          "package_name": "com.example.remindtopay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365559018014-gqhr93idhk872tj0m8soi64sjdi157in.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.remindtopay",
+            "certificate_hash": "48848de3212f43b4b1bae3dde587e658556b5bc7"
+          }
+        },
+        {
+          "client_id": "365559018014-hbopj2t3od0oprvkas67p7lidiqn3n1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt_1JwkmOeLDWXmXeDLok9FSnJJtxCQVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365559018014-hbopj2t3od0oprvkas67p7lidiqn3n1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
