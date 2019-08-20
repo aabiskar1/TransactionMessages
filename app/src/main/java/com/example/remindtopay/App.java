@@ -9,7 +9,7 @@ import android.os.Build;
 public class App extends Application {
     public static final String CHANNEL_1_ID = "exampleServiceChannel1";
     public static final String CHANNEL_2_ID = "exampleServiceChannel2";
-
+ //
     @Override
     public void onCreate() {
         super.onCreate();
