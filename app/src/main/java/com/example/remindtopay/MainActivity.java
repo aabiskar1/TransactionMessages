@@ -398,14 +398,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-//
-//        fab_startServices.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                sentOnChannel1(v);
-//                Toast.makeText(MainActivity.this, "channel 1 notification", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 //
 //        fab_stopServices.setOnClickListener(new View.OnClickListener() {
 //            @Override
