@@ -42,7 +42,6 @@ public class received_reminder_layout extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String username= mAuth.getCurrentUser().getEmail();
         notebookRef= db.collection("reminder").document(username).collection("receivedReminders");
-        FBToast.infoToast(this, notebookRef.getPath(), Toast.LENGTH_SHORT);
 
         dbReceivedReminder = FirebaseFirestore.getInstance();
         dbTargetReminder = FirebaseFirestore.getInstance();

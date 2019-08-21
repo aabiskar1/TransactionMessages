@@ -35,7 +35,6 @@ public class sent_reminder_layout extends AppCompatActivity implements DeleteDia
         mAuth = FirebaseAuth.getInstance();
         String username= mAuth.getCurrentUser().getEmail();
         notebookRef= db.collection("reminder").document(username).collection("sentReminders");
-        Toast.makeText(this, notebookRef.getPath(), Toast.LENGTH_SHORT).show();
         setUpRecyclerView();
     }
     private void setUpRecyclerView(){

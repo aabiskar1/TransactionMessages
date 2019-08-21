@@ -362,7 +362,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                FBToast.infoToast(MainActivity.this, "Received Reminder layout clicked", Toast.LENGTH_SHORT);
                 receivedReminderCounterUpdate();
                 Intent myIntent = new Intent(getApplicationContext(), received_reminder_layout.class);
                 startActivity(myIntent);
@@ -424,12 +423,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        };
 
-        notificationEventListener =  notebookRefReceived.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                sentOnChannel1(getCurrentFocus());
-            }
-        });
 
 
 

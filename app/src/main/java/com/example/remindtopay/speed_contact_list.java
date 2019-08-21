@@ -43,7 +43,6 @@ public class speed_contact_list extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String username= mAuth.getCurrentUser().getEmail();
         speedContactListRef= db.collection("speed_contact").document(username).collection("contacts");
-        Toast.makeText(this, speedContactListRef.getPath(), Toast.LENGTH_SHORT).show();
         setUpspeedContactRecyclerView();
 
 
