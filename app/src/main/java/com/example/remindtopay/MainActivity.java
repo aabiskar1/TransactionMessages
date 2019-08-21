@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         txtReminderReceivedCount = findViewById(R.id.profile_reminderReceivedCount);
 
        // txtProfileName.setText(mAuth.getCurrentUser().toString());
-        String username = mAuth.getCurrentUser().getEmail();
+        final String username = mAuth.getCurrentUser().getEmail();
 
         //database references
         checkDocExistsRef =  dbCheckDocExists.collection("details").document(username);
@@ -391,10 +391,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 mAuth.signOut();
-                notificationEventListener.remove();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                finish();
 
+                finish();
+                FBToast.successToast(getApplicationContext(), username+" logged out successfully", Toast.LENGTH_SHORT);
             }
         });
 

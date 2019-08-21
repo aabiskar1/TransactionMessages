@@ -77,6 +77,7 @@ public class speed_contact_list extends AppCompatActivity {
                String bankName = contact.getBankName();
                String receiverEmail = contact.getReceiverEmail();
                 Toast.makeText(speed_contact_list.this, "Data Loaded", Toast.LENGTH_SHORT).show();
+                finish();
 
                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
                 myIntent.putExtra("accountName", accountName);

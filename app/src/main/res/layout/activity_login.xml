@@ -72,7 +72,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:singleLine="true"
-                    android:text="aabiskar1@yahoo.com"
+                    android:text="test@test.com"
                     android:textColor="@color/white"
                     android:textColorHint="@color/greyDark"
                     android:textSize="25sp" />
